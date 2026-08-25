@@ -12,12 +12,19 @@ describe("RLM trace layout", () => {
   it("uses RLM map/reduce language instead of stale transcript and chat language", () => {
     expect(appSource).toContain("Structured RLM");
     expect(appSource).toContain("Model map");
-    expect(appSource).toContain("Reducer output");
+    expect(appSource).toContain("JavaScript reducer output");
     expect(appSource).toContain("Cancel comparison");
     expect(appSource).toContain("Waiting for the RLM map");
     expect(appSource).toContain("All three strategies are overlapping now");
     expect(appSource).toContain("Workers AI charges may apply");
     expect(appSource).not.toContain("Model response");
     expect(appSource).not.toContain("transcript");
+  });
+
+  it("shows executor output separately from semantic capability mismatches", () => {
+    expect(appSource).toContain("JavaScript execution output");
+    expect(appSource).toContain("Capability mismatch");
+    expect(appSource).toContain("JavaScript completed, but its output does not fit this task.");
+    expect(appSource).toContain("bounded <code>ws:model</code> map calls");
   });
 });

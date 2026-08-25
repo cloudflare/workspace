@@ -30,7 +30,7 @@ describe("executor output sanitation", () => {
     });
   });
 
-  it("drops untyped, oversized, and error output", () => {
+  it("summarizes rejected output without exposing its values", () => {
     expect(
       sanitizeExecutorOutput({
         ...base,
@@ -46,9 +46,16 @@ describe("executor output sanitation", () => {
         exitCode: 0,
         stdout: "raw corpus",
         stderr: "",
-        result: { evidence: "raw corpus evidence" },
+        result: { diagnostic: "raw corpus evidence" },
       }),
-    ).not.toHaveProperty("result");
+    ).toMatchObject({
+      stdout: "",
+      result: {
+        accepted: false,
+        reason: "Expected a bounded scalar/list or an object containing answer.",
+        received: "object without answer",
+      },
+    });
     expect(
       sanitizeExecutorOutput({
         ...base,
@@ -57,7 +64,12 @@ describe("executor output sanitation", () => {
         stderr: "",
         result: { answer: "x".repeat(17 * 1024) },
       }),
-    ).not.toHaveProperty("result");
+    ).toMatchObject({
+      result: {
+        accepted: false,
+        received: "object with answer",
+      },
+    });
     expect(
       sanitizeExecutorOutput({
         ...base,

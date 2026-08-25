@@ -5,7 +5,7 @@ export const EXECUTOR_BACKEND = "oolong-javascript";
 export const RLM_BACKEND = "oolong-rlm-javascript";
 
 type ExecWorkspace = Parameters<typeof createExecTool>[0]["workspace"];
-const MAX_SAFE_ANSWER_BYTES = 16 * 1024;
+const MAX_SAFE_RESULT_BYTES = 16 * 1024;
 
 export function createExecutorTool(
   workspace: ExecWorkspace,
@@ -45,17 +45,16 @@ export function sanitizeExecutorOutput(output: ExecToolOutput): ExecToolOutput {
   const base = { command: output.command, cwd: output.cwd, backend: output.backend };
   if ("error" in output) return { ...base, error: "Generated execution failed." };
 
-  const answer = safeAnswer(output.result);
   return {
     ...base,
     exitCode: output.exitCode,
     stdout: "",
     stderr: "",
-    ...(answer === undefined ? {} : { result: { answer } }),
+    result: safeResult(output.result),
   };
 }
 
-function safeAnswer(value: unknown): string | number | Array<string | number> | undefined {
+function safeResult(value: unknown): Record<string, unknown> {
   const answer = isRecord(value) && Object.hasOwn(value, "answer") ? value.answer : value;
   const valid =
     typeof answer === "string" ||
@@ -65,8 +64,23 @@ function safeAnswer(value: unknown): string | number | Array<string | number> | 
         (item): item is string | number =>
           typeof item === "string" || (typeof item === "number" && Number.isFinite(item)),
       ));
-  if (!valid || encodedBytes(answer) > MAX_SAFE_ANSWER_BYTES) return undefined;
-  return answer;
+
+  if (valid && encodedBytes(answer) <= MAX_SAFE_RESULT_BYTES) return { answer };
+
+  return {
+    accepted: false,
+    reason: "Expected a bounded scalar/list or an object containing answer.",
+    received: describeResult(value),
+  };
+}
+
+function describeResult(value: unknown): string {
+  if (Array.isArray(value)) return `array with ${value.length} items`;
+  if (isRecord(value)) {
+    return Object.hasOwn(value, "answer") ? "object with answer" : "object without answer";
+  }
+  if (value === null) return "null";
+  return typeof value;
 }
 
 function isAsyncIterable(value: unknown): value is AsyncIterable<ExecToolOutput> {

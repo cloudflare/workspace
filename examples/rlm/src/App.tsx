@@ -388,6 +388,11 @@ function Lane({
   const run = state.run;
   const metric = run?.metrics;
   const execution = latestExecution(messages);
+  const showsSemanticMismatch =
+    state.lane === "executor" &&
+    run?.sample.dataset === "oolongbench/oolong-synth" &&
+    run.sample.row === 1200 &&
+    run.score?.score === 0;
   const running =
     state.status === "loading" ||
     state.status === "running" ||
@@ -548,20 +553,36 @@ function Lane({
           </section>
         ) : null}
         {execution ? (
-          <details className="execution">
-            <summary>
-              {state.lane === "rlm" ? "Generated map/reduce module" : "Generated executor module"}
-              {" · "}
-              {formatBytes(new TextEncoder().encode(execution.source).byteLength)}
-            </summary>
-            <pre>{execution.source}</pre>
+          <>
+            <details className="execution">
+              <summary>
+                {state.lane === "rlm" ? "Generated map/reduce module" : "Generated executor module"}
+                {" · "}
+                {formatBytes(new TextEncoder().encode(execution.source).byteLength)}
+              </summary>
+              <pre>{execution.source}</pre>
+            </details>
             {execution.result !== undefined ? (
-              <div className="result">
-                <span>{state.lane === "rlm" ? "Reducer output" : "Execution output"}</span>
+              <section className="result">
+                <span>
+                  {state.lane === "rlm"
+                    ? "JavaScript reducer output"
+                    : "JavaScript execution output"}
+                </span>
                 <pre>{formatValue(execution.result)}</pre>
-              </div>
+              </section>
             ) : null}
-          </details>
+          </>
+        ) : null}
+        {showsSemanticMismatch ? (
+          <section className="capability-note">
+            <span>Capability mismatch</span>
+            <strong>JavaScript completed, but its output does not fit this task.</strong>
+            <p>
+              The records need semantic labels before code can count them. This lane has no model
+              capability; Structured RLM adds bounded <code>ws:model</code> map calls.
+            </p>
+          </section>
         ) : null}
         {state.error ? (
           <div className="error">

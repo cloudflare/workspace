@@ -73,7 +73,7 @@ button { cursor:pointer; }
 .working span { color:var(--muted); font-size:7px; }
 .working button { display:flex; align-items:center; gap:4px; border:0; color:var(--red); background:transparent; font-size:8px; }
 .working button svg { width:9px; }
-.sample-card,.answer,.children,.execution { border:1px solid var(--line); border-radius:9px; background:white; }
+.sample-card,.answer,.children,.execution,.result,.capability-note { border:1px solid var(--line); border-radius:9px; background:white; }
 .sample-card { display:flex; flex-direction:column; gap:6px; padding:11px; }
 .sample-card>span,.answer>span { color:var(--orange); font-family:var(--mono); font-size:7px; font-weight:600; text-transform:uppercase; }
 .sample-card>strong { font-size:10px; line-height:1.45; }
@@ -101,9 +101,14 @@ button { cursor:pointer; }
 .execution { overflow:hidden; }
 .execution summary { padding:9px 10px; font-family:var(--mono); font-size:8px; cursor:pointer; }
 .execution>pre { max-height:320px; margin:0; padding:11px; overflow:auto; color:#e6e6de; background:#20201e; font-family:var(--mono); font-size:7.5px; line-height:1.55; white-space:pre-wrap; }
-.result { border-top:1px solid var(--line); }
-.result span { display:block; padding:7px 10px 0; color:var(--orange); font-family:var(--mono); font-size:7px; text-transform:uppercase; }
-.result pre { margin:0; padding:8px 10px 10px; overflow:auto; font-family:var(--mono); font-size:8px; }
+.result { overflow:hidden; }
+.result span { display:block; padding:8px 10px; border-bottom:1px solid var(--line); color:var(--orange); font-family:var(--mono); font-size:7px; text-transform:uppercase; }
+.result pre { max-height:180px; margin:0; padding:10px; overflow:auto; background:var(--soft); font-family:var(--mono); font-size:8px; line-height:1.5; white-space:pre-wrap; }
+.capability-note { padding:11px; border-color:#f1c69d; background:#fff9f3; }
+.capability-note>span { color:var(--orange); font-family:var(--mono); font-size:7px; font-weight:600; text-transform:uppercase; }
+.capability-note>strong { display:block; margin-top:5px; font-size:9px; }
+.capability-note p { margin:5px 0 0; color:var(--muted); font-size:8px; line-height:1.5; }
+.capability-note code { color:#333; font-family:var(--mono); font-size:7.5px; }
 .answer { display:grid; grid-template-columns:1fr auto; gap:8px; padding:11px; }
 .answer>strong { color:var(--green); font-family:var(--mono); font-size:18px; }
 .answer>div { grid-column:1/-1; display:grid; grid-template-columns:78px minmax(0,1fr); gap:7px; align-items:start; }

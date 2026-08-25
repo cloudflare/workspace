@@ -165,7 +165,11 @@ export class ExecutorAgent extends AIChatAgent<ModelEnv, BenchmarkAgentState> {
           ...this.state,
           status: hasExecutionResult ? "completed" : "failed",
           finalAnswer: text,
-          error: hasExecutionResult ? null : "The model did not return an execution result.",
+          error: hasExecutionResult
+            ? null
+            : metrics.executionAttempts > 0
+              ? "Generated JavaScript execution failed."
+              : "The model did not call the JavaScript executor.",
           finishedAt: new Date().toISOString(),
           run,
         });
