@@ -246,6 +246,19 @@ describe("WorkspaceStub", () => {
     });
   });
 
+  it("fs.find forwards exclusion patterns", async () => {
+    await withStub(async (ws) => {
+      const stub = ws.stub();
+      await ws.fs.mkdir("/keep");
+      await ws.fs.mkdir("/node_modules/dep", { recursive: true });
+      await ws.fs.writeFile("/keep/a.ts", "");
+      await ws.fs.writeFile("/node_modules/dep/b.ts", "");
+      expect(
+        await stub.fs.find("/", "**/*.ts", { exclude: ["node_modules", "node_modules/**"] }),
+      ).toEqual([{ path: "/keep/a.ts", type: "file" }]);
+    });
+  });
+
   it("fs.stat propagates ENOENT for missing paths", async () => {
     await withStub(async (ws) => {
       const stub = ws.stub();
