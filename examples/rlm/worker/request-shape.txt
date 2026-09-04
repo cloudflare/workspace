@@ -1,0 +1,1 @@
+Each batch item has two outer fields: prompt and input. The input contains metadata and text. Example JSON: {"prompt":"Return JSON only","input":{"metadata":"chunk descriptor","text":"chunk text"}}. Do not put metadata or text directly on the outer item.

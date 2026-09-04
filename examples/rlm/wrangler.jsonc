@@ -1,0 +1,44 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "computer-rlm-example",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-06-04",
+  "compatibility_flags": ["nodejs_compat", "experimental"],
+  "assets": {
+    "not_found_handling": "single-page-application"
+  },
+  "ai": {
+    "binding": "AI"
+  },
+  "worker_loaders": [
+    {
+      "binding": "LOADER"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "DirectAgent",
+        "class_name": "DirectAgent"
+      },
+      {
+        "name": "ExecutorAgent",
+        "class_name": "ExecutorAgent"
+      },
+      {
+        "name": "RlmAgent",
+        "class_name": "RlmAgent"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["DirectAgent", "ExecutorAgent", "RlmAgent"]
+    }
+  ],
+  "observability": {
+    "enabled": true
+  },
+  "upload_source_maps": true
+}

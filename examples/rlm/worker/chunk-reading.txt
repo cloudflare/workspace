@@ -1,0 +1,1 @@
+Important: contextChunks are descriptors only; they do not contain transcript text. Read every descriptor.path as UTF-8 before building requests. The batch item's input.text must be that file content, never descriptor.text and never an empty fallback.

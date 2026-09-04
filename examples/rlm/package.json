@@ -1,0 +1,38 @@
+{
+  "name": "@cloudflare/example-rlm",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A long-context RLM example built with Cloudflare Computer and generated JavaScript.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build && node scripts/sanitize-build.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc -b --pretty false",
+    "preview": "npm run build && vite preview",
+    "deploy": "npm run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "@cloudflare/ai-chat": "^0.10.1",
+    "@cloudflare/computer": "*",
+    "@phosphor-icons/react": "^2.1.10",
+    "agents": "^0.20.0",
+    "ai": "^7.0.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "workers-ai-provider": "^4.0.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.39.2",
+    "@cloudflare/workers-types": "^4.20260616.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.7",
+    "wrangler": "^4.107.1"
+  }
+}

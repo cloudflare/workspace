@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "description": "Rows used to develop structured RLM prompts. These rows are not a held-out release benchmark.",
+  "cases": [
+    {
+      "id": "oolong-real-dnd-0",
+      "role": "development",
+      "dataset": "oolongbench/oolong-real",
+      "datasetRevision": "6bc9ef04866fcf005c9749b70649be69dd37fffb",
+      "config": "dnd",
+      "split": "test",
+      "row": 0,
+      "sourceHash": "fnv1a-dc0a79c6",
+      "family": "roll-count"
+    },
+    {
+      "id": "oolong-real-dnd-30",
+      "role": "development",
+      "dataset": "oolongbench/oolong-real",
+      "datasetRevision": "6bc9ef04866fcf005c9749b70649be69dd37fffb",
+      "config": "dnd",
+      "split": "test",
+      "row": 30,
+      "sourceHash": "fnv1a-4ae660b9",
+      "family": "first-event"
+    },
+    {
+      "id": "oolong-real-dnd-35",
+      "role": "development",
+      "dataset": "oolongbench/oolong-real",
+      "datasetRevision": "6bc9ef04866fcf005c9749b70649be69dd37fffb",
+      "config": "dnd",
+      "split": "test",
+      "row": 35,
+      "sourceHash": "fnv1a-69b7b188",
+      "family": "semantic-frequency"
+    },
+    {
+      "id": "oolong-real-dnd-39",
+      "role": "development",
+      "dataset": "oolongbench/oolong-real",
+      "datasetRevision": "6bc9ef04866fcf005c9749b70649be69dd37fffb",
+      "config": "dnd",
+      "split": "test",
+      "row": 39,
+      "sourceHash": "fnv1a-3e479894",
+      "family": "semantic-classification"
+    },
+    {
+      "id": "oolong-real-dnd-2500",
+      "role": "development",
+      "dataset": "oolongbench/oolong-real",
+      "datasetRevision": "6bc9ef04866fcf005c9749b70649be69dd37fffb",
+      "config": "dnd",
+      "split": "test",
+      "row": 2500,
+      "sourceHash": "fnv1a-385d828a",
+      "family": "last-event-per-document"
+    },
+    {
+      "id": "oolong-synth-0",
+      "role": "development",
+      "dataset": "oolongbench/oolong-synth",
+      "datasetRevision": "f0d59eaf0febf130664cfceb710436c8e3216b2b",
+      "config": "default",
+      "split": "test",
+      "row": 0,
+      "sourceHash": "fnv1a-3e089e33",
+      "family": "semantic-frequency"
+    },
+    {
+      "id": "oolong-synth-1200",
+      "role": "development",
+      "dataset": "oolongbench/oolong-synth",
+      "datasetRevision": "f0d59eaf0febf130664cfceb710436c8e3216b2b",
+      "config": "default",
+      "split": "test",
+      "row": 1200,
+      "sourceHash": "fnv1a-a7b6af80",
+      "family": "semantic-frequency"
+    },
+    {
+      "id": "oolong-synth-2800",
+      "role": "development",
+      "dataset": "oolongbench/oolong-synth",
+      "datasetRevision": "f0d59eaf0febf130664cfceb710436c8e3216b2b",
+      "config": "default",
+      "split": "test",
+      "row": 2800,
+      "sourceHash": "fnv1a-7e3ff114",
+      "family": "semantic-frequency"
+    }
+  ]
+}

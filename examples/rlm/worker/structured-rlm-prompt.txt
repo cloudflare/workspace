@@ -1,0 +1,9 @@
+Solve this official Oolong task with one structured semantic map/reduce execution.
+
+Author one complete ES module with a default async function. Read the manifest and every documented context chunk. Each chunk descriptor includes its global index, episode, partIndex, startByte, and endByte.
+
+MAP: Build one request per chunk in manifest order. Send one bounded batch containing no more than 24 requests. Each request input is { metadata, text } or the task-specific documented extension of that shape, where metadata is the matching chunk descriptor and text is the UTF-8 file content. Use the task-specific compact JSON schema below so children return only evidence needed by the reducer.
+
+REDUCE: Match each result to its request by result.index. Parse and validate successful JSON results in JavaScript. Combine them using the task-specific deterministic reducer below. Do not ask the parent or another child to aggregate the findings.
+
+Return { answer } from the same default function. Use an integer for counts and a comma-separated string or list for list questions. Do not return child findings, transcript text, candidate lines, or diagnostics.
